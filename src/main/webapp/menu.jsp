@@ -12,29 +12,26 @@
           <a class="nav-link" href="./index.jsp">Inicio</a>
         </li>
         <c:choose>
-            <c:when test="${not empty username}">
-        <li class="nav-item">
-                Bienvenido, ${username}</li>
-        <li class="nav-item">
-                <a href="logout">Cerrar sesión</a></li>
-            </c:when>
-            <c:otherwise>
-        <li class="nav-item">
-                <a class="nav-link" href="login.jsp">Log in</a></li>
-        <li class="nav-item">
-                <a class="nav-link" href="signup.jsp">Sign up</a></li>
-            </c:otherwise>
+          <c:when test="${not empty username}">
+            <li class="nav-item">
+              <a href="logout" class="nav-link">Log out</a>
+            </li>
+          </c:when>
+          <c:otherwise>
+            <li class="nav-item">
+              <a class="nav-link" href="login.jsp">Log in</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="signup.jsp">Sign up</a>
+            </li>
+          </c:otherwise>
         </c:choose>
       </ul>
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-outline-success" type="submit">Search</button>
+        <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Buscar">
+        <button class="btn btn-outline-success" type="submit">Buscar</button>
       </form>
     </div>
   </div>
-</nav>
-<nav>
-    <ul>
-    </ul>
 </nav>
 

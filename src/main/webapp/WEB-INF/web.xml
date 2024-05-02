@@ -4,9 +4,16 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
          
-    <!-- Define los servlets -->
+    <!-- Servlets -->
+    <servlet>
+        <servlet-name>SignUpServlet</servlet-name>
+        <servlet-class>SignUpServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogInServlet</servlet-name>
+        <servlet-class>LogInServlet</servlet-class>
+    </servlet>
 
-    <!-- Mapea las URL a los servlets -->
 
     <!-- Página de inicio -->
     <welcome-file-list>

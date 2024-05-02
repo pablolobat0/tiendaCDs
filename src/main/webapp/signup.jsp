@@ -14,7 +14,12 @@
 
     <div class="container">
         <h1>Registro</h1>
-        <form action="registro" method="post">
+                <c:if test="${not empty requestScope.error}">
+            <div class="alert alert-danger" role="alert">
+                ${requestScope.error}
+            </div>
+        </c:if>
+        <form action="signup" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Nombre de usuario</label>
                 <input type="text" class="form-control" id="username" name="username" required>
