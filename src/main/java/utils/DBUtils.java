@@ -1,24 +1,30 @@
 package utils;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.sql.DataSource;
 
 public class DBUtils {
-  private static final String URL = "jdbc:postgresql://localhost:5432/shop";
-  private static final String USER = "postgres";
-  private static final String PASSWORD = "test1234";
-  private static Connection connection;
+  private static DataSource dataSource;
 
-  public static Connection getConnection() throws SQLException {
-    if (connection == null || connection.isClosed()) {
-      connection = DriverManager.getConnection(URL, USER, PASSWORD);
+  static {
+    try {
+      InitialContext initContext = new InitialContext();
+      dataSource =
+          (DataSource)initContext.lookup("java:/comp/env/jdbc/MyDataSource");
+    } catch (NamingException e) {
+      e.printStackTrace();
     }
-    return connection;
   }
 
-  // Método para cerrar la conexión
-  public static void closeConnection() throws SQLException {
+  public static Connection getConnection() throws SQLException {
+    return dataSource.getConnection();
+  }
+
+  public static void closeConnection(Connection connection)
+      throws SQLException {
     if (connection != null && !connection.isClosed()) {
       connection.close();
     }

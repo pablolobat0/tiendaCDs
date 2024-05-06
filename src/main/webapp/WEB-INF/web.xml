@@ -13,11 +13,13 @@
         <servlet-name>LogInServlet</servlet-name>
         <servlet-class>LogInServlet</servlet-class>
     </servlet>
-
-
-    <!-- Página de inicio -->
+    <servlet>
+        <servlet-name>ProductPageServlet</servlet-name>
+        <servlet-class>controllers.ProductPageServlet</servlet-class>
+    </servlet>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
+
 </web-app>
 
