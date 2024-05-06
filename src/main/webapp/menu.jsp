@@ -9,7 +9,10 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link" href="./index.jsp">Inicio</a>
+          <a class="nav-link" href="index.jsp">Inicio</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="products">Comprar</a>
         </li>
         <c:choose>
           <c:when test="${not empty username}">

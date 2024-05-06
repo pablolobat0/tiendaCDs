@@ -5,7 +5,6 @@ import exceptions.*;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import models.User;
 import utils.DBUtils;
 import utils.Validators;
 
@@ -14,7 +13,7 @@ public class UserDao {
   public void register(String username, String email, String password)
       throws UsernameAlreadyExists, EmailAlreadyExists, UsernameNotValid,
              PasswordNotValid, EmailNotValid {
-
+    System.out.println("Hola que tal soy user");
     if (!Validators.isValidUsername(username)) {
       throw new UsernameNotValid(
           "El nombre de usuario puede estar compuesto por letras, números y "
@@ -67,7 +66,7 @@ public class UserDao {
     ResultSet rsUsuario = null;
     try {
       stmUsuario = DBUtils.getConnection().prepareStatement(
-          "SELECT COUNT(*) FROM usuarios WHERE nombre = ?");
+          "SELECT COUNT(*) FROM users WHERE name = ?");
       stmUsuario.setString(1, name);
       rsUsuario = stmUsuario.executeQuery();
       rsUsuario.next();
@@ -99,7 +98,7 @@ public class UserDao {
 
     try {
       stmUsuario = DBUtils.getConnection().prepareStatement(
-          "SELECT COUNT(*) FROM usuarios WHERE email = ?");
+          "SELECT COUNT(*) FROM users WHERE email = ?");
       stmUsuario.setString(1, email);
       rsUsuario = stmUsuario.executeQuery();
       rsUsuario.next();

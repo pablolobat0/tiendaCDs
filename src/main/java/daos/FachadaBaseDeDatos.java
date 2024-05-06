@@ -6,13 +6,19 @@ import exceptions.PasswordNotValid;
 import exceptions.UserDoesNotExist;
 import exceptions.UsernameAlreadyExists;
 import exceptions.UsernameNotValid;
+import java.util.ArrayList;
+import models.Product;
 
 public class FachadaBaseDeDatos {
   private static FachadaBaseDeDatos fachadaBaseDeDatos;
 
   private UserDao userDao;
+  private ProductDao productDao;
 
-  private FachadaBaseDeDatos() { this.userDao = new UserDao(); }
+  private FachadaBaseDeDatos() {
+    this.userDao = new UserDao();
+    this.productDao = new ProductDao();
+  }
 
   public static synchronized FachadaBaseDeDatos getFachadaBaseDeDatos() {
     if (fachadaBaseDeDatos == null) {
@@ -30,5 +36,9 @@ public class FachadaBaseDeDatos {
   public void authenticate(String username, String password)
       throws UserDoesNotExist {
     userDao.authenticate(username, password);
+  }
+
+  public ArrayList<Product> getAllProducts() {
+    return productDao.getAllProducts();
   }
 }

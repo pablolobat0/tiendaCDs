@@ -46,6 +46,7 @@
                 <configuration>
                     <warSourceDirectory>src/main/webapp</warSourceDirectory>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warName>tienda</warName> 
                 </configuration>
             </plugin>
         </plugins>
