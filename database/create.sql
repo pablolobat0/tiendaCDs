@@ -1,13 +1,20 @@
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
-    name VARCHAR(255),
+    name VARCHAR(255) NOT NULL UNIQUE,
     password VARCHAR(255),
     email VARCHAR(255) UNIQUE,
     salt VARCHAR(255)
 );
 
+CREATE TABLE cds (
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL UNIQUE,
+    price NUMERIC(10, 2)
+);
+
 CREATE TABLE orders (
     id SERIAL PRIMARY KEY,
-    user_id INT REFERENCES users(id),
-    price NUMERIC(10, 2)
+    user_id INT,
+    price NUMERIC(10, 2),
+    FOREIGN KEY(user_id) REFERENCES users(id) ON DELETE CASCADE ON UPDATE CASCADE
 );
