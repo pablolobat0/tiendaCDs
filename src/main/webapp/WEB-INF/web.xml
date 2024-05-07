@@ -17,6 +17,15 @@
         <servlet-name>ProductPageServlet</servlet-name>
         <servlet-class>controllers.ProductPageServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ShoppingCartServlet</servlet-name>
+        <servlet-class>controllers.ShoppingCartServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>BuyServlet</servlet-name>
+        <servlet-class>controllers.BuyServlet</servlet-class>
+    </servlet>
+
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>

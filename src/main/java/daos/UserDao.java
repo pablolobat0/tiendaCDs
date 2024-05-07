@@ -2,6 +2,7 @@ package daos;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 import exceptions.*;
+import models.User;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -178,4 +179,41 @@ public class UserDao {
         return result.verified;
     }
 
+    public User getUserByName(String name) throws UserDoesNotExist {
+        PreparedStatement stmUsuario = null;
+        ResultSet rsUsuario = null;
+        User user = null;
+
+        try {
+            stmUsuario = DBUtils.getConnection().prepareStatement(
+                    "SELECT * FROM users WHERE name = ?");
+            stmUsuario.setString(1, name);
+            rsUsuario = stmUsuario.executeQuery();
+            if (rsUsuario.next()) {
+                user = new User();
+                user.setId(rsUsuario.getInt("id"));
+                user.setName(rsUsuario.getString("name"));
+                user.setEmail(rsUsuario.getString("email"));
+            } else {
+                throw new UserDoesNotExist("El usuario no existe");
+            }
+        } catch (SQLException e) {
+            System.err.println(
+                    "Error al buscar al usuario: " +
+                            e.getMessage());
+            e.printStackTrace();
+        } finally {
+            try {
+                if (stmUsuario != null) {
+                    stmUsuario.close();
+                }
+                if (rsUsuario != null) {
+                    rsUsuario.close();
+                }
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return user;
+    }
 }
