@@ -11,6 +11,10 @@
     <jsp:include page="menu.jsp" />
     <div class="container">
         <h1>Iniciar Sesión</h1>
+                <c:if test="${not empty requestScope.error}">
+            <div class="alert alert-danger" role="alert">
+                ${requestScope.error}
+            </div>
         <form action="login" method="post">
             <div class="mb-3">
                 <label for="username" class="form-label">Nombre de usuario</label>
