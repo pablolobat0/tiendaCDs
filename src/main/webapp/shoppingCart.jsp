@@ -30,6 +30,9 @@
                     <div class="card-body">
                         <h5 class="card-title">Total</h5>
                         <p class="card-text">${totalPrice}€</p>
+                        <form action="shoppingCart" method="post">
+                            <button type="submit" class="btn btn-primary">Comprar</button>
+                        </form>
                     </div>
                 </div>
             </div>
