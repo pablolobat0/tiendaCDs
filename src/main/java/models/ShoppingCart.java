@@ -1,27 +1,42 @@
 package models;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class ShoppingCart {
-  private List<Product> items;
+    private HashMap<Product, Integer> products;
 
-  public ShoppingCart() { this.items = new ArrayList<>(); }
-
-  public List<Product> getItems() { return items; }
-
-  public void addItem(Product product) { items.add(product); }
-
-  public void removeItem(Product product) { items.remove(product); }
-
-  public void clear() { items.clear(); }
-
-  public BigDecimal getTotalPrice() {
-    BigDecimal totalPrice = new BigDecimal(0);
-    for (Product item : items) {
-      totalPrice.add(item.getPrice());
+    public ShoppingCart() {
+        this.products = new HashMap<>();
     }
-    return totalPrice;
-  }
+
+    public HashMap<Product, Integer> getProducts() {
+        return products;
+    }
+
+    public void addItem(Product product, int quantity) {
+        products.put(product, quantity);
+    }
+
+    public void removeItem(Product product) {
+        products.remove(product);
+    }
+
+    public void clear() {
+        products.clear();
+    }
+
+    public BigDecimal getTotalPrice() {
+        BigDecimal totalPrice = BigDecimal.ZERO; // Inicializamos el total en 0
+
+        for (Product item : products.keySet()) {
+            BigDecimal itemsPrice = item.getPrice();
+            BigDecimal quantity = new BigDecimal(products.get(item)); // Cantidad de productos
+            BigDecimal subtotal = itemsPrice.multiply(quantity); // Subtotal para este producto
+            totalPrice = totalPrice.add(subtotal); // Agregar al total
+        }
+
+        return totalPrice;
+    }
+
 }

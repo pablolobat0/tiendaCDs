@@ -14,6 +14,9 @@
         <li class="nav-item">
           <a class="nav-link" href="products">Comprar</a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" href="shoppingCart">Carrito</a>
+        </li>
         <c:choose>
           <c:when test="${not empty username}">
             <li class="nav-item">

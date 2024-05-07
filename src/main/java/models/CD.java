@@ -13,4 +13,22 @@ public class CD implements Product {
 
   public String getName() { return name; }
   public BigDecimal getPrice() { return price; }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+
+    if (o == null || getClass() != o.getClass()) {
+      return false;
+    }
+
+    CD cd = (CD) o;
+    if (!this.name.equals(cd.name)) {
+      return false;
+    }
+
+    return true;
+  }
 }

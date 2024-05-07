@@ -22,6 +22,16 @@
                         <div class="card-body">
                             <h5 class="card-title">${product.getName()}</h5>
                             <p class="card-text">Precio: ${product.getPrice()}</p>
+                            <form action="products" method="post">
+                                <input type="hidden" name="productName" value="${product.getName()}">
+                                <div class="input-group mb-3">
+                                    <span class="input-group-text">Cantidad</span>
+                                    <input type="number" name="quantity" id="quantity-${product.getName()}" class="form-control" value="1" min="1">
+                                    <button type="button" class="btn btn-secondary">-</button>
+                                    <button type="button" class="btn btn-secondary">+</button>
+                                </div>
+                                <button type="submit" class="btn btn-primary">Añadir al carrito</button>
+                            </form>
                         </div>
                     </div>
                 </div>
