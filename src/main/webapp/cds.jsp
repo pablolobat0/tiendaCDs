@@ -27,8 +27,8 @@
                                 <div class="input-group mb-3">
                                     <span class="input-group-text">Cantidad</span>
                                     <input type="number" name="quantity" id="quantity-${product.getName()}" class="form-control" value="1" min="1">
-                                    <button type="button" class="btn btn-secondary">-</button>
-                                    <button type="button" class="btn btn-secondary">+</button>
+                                    <button type="button" class="btn btn-secondary down">-</button>
+                                    <button type="button" class="btn btn-secondary up">+</button>
                                 </div>
                                 <button type="submit" class="btn btn-primary">Añadir al carrito</button>
                             </form>
@@ -40,6 +40,7 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="js/cds.js"> </script>
 </body>
 </html>
 
