@@ -40,11 +40,13 @@ public class BuyServlet extends HttpServlet {
             User user = fachadaBaseDeDatos.getUserByName(username);
             fachadaBaseDeDatos.createOrder(user.getId(), totalPrice);
             cart.clear();
+            String confirmationMessage = "¡Compra realizada con éxito!";
+            request.setAttribute("confirmationMessage", confirmationMessage);
         } catch (UserDoesNotExist e) {
             request.setAttribute("error", e.getMessage());
             request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
             return;
         }
-        response.sendRedirect("index.jsp");
+        request.getRequestDispatcher("index.jsp").forward(request, response);
     }
 }

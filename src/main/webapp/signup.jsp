@@ -14,7 +14,7 @@
 
     <div class="container">
         <h1>Registro</h1>
-                <c:if test="${not empty requestScope.error}">
+        <c:if test="${not empty requestScope.error}">
             <div class="alert alert-danger" role="alert">
                 ${requestScope.error}
             </div>

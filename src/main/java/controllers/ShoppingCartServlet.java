@@ -3,6 +3,7 @@ package controllers;
 import daos.FachadaBaseDeDatos;
 import exceptions.UserDoesNotExist;
 import models.ShoppingCart;
+import models.User;
 
 import java.io.*;
 import javax.servlet.*;
@@ -36,6 +37,15 @@ public class ShoppingCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String username = (String) session.getAttribute("username");
+
+        // Verificar si el usuario está autenticado
+        if (username == null) {
+            request.setAttribute("error", "Debe iniciar sesión o registrarse para realizar una compra.");
+            RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
+            dispatcher.forward(request, response);
+            return;
+        }
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
         if (cart == null) {
             cart = new ShoppingCart();
