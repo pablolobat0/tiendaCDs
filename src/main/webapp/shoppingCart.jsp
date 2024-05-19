@@ -21,6 +21,10 @@
                             <span class="badge bg-primary rounded-pill">
                                 ${entry.value} x ${entry.key.getPrice()}€
                             </span>
+                            <form action="removeCartProduct" method="get" class="d-inline">
+                                <input type="hidden" name="productName" value="${entry.key.getName()}" />
+                                <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                            </form>
                         </li>
                     </c:forEach>
                 </ul>
