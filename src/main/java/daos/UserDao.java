@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import utils.DBUtils;
 import utils.Validators;
+import java.sql.Connection;
 
 public class UserDao {
 
@@ -37,10 +38,12 @@ public class UserDao {
         }
 
         PreparedStatement stmUsuario = null;
+        Connection connection = null;
         try {
+            connection = DBUtils.getConnection();
             String salt = generateSalt(password);
             String hashedPassword = hashPassword(password, salt);
-            stmUsuario = DBUtils.getConnection().prepareStatement(
+            stmUsuario = connection.prepareStatement(
                     "INSERT INTO users (name,password,email, salt) values(?,?,?,?)");
             stmUsuario.setString(1, username);
             stmUsuario.setString(2, hashedPassword);
@@ -55,6 +58,7 @@ public class UserDao {
                 if (stmUsuario != null) {
                     stmUsuario.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -64,8 +68,10 @@ public class UserDao {
     private boolean existUsername(String name) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuario = null;
+        Connection connection = null;
         try {
-            stmUsuario = DBUtils.getConnection().prepareStatement(
+            connection = DBUtils.getConnection();
+            stmUsuario = connection.prepareStatement(
                     "SELECT COUNT(*) FROM users WHERE name = ?");
             stmUsuario.setString(1, name);
             rsUsuario = stmUsuario.executeQuery();
@@ -84,6 +90,7 @@ public class UserDao {
                 if (rsUsuario != null) {
                     rsUsuario.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -95,9 +102,11 @@ public class UserDao {
     private boolean existEmail(String email) {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuario = null;
+        Connection connection = null;
 
         try {
-            stmUsuario = DBUtils.getConnection().prepareStatement(
+            connection = DBUtils.getConnection();
+            stmUsuario = connection.prepareStatement(
                     "SELECT COUNT(*) FROM users WHERE email = ?");
             stmUsuario.setString(1, email);
             rsUsuario = stmUsuario.executeQuery();
@@ -116,6 +125,7 @@ public class UserDao {
                 if (rsUsuario != null) {
                     rsUsuario.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -137,9 +147,11 @@ public class UserDao {
             throws UserDoesNotExist {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuario = null;
+        Connection connection = null;
 
         try {
-            stmUsuario = DBUtils.getConnection().prepareStatement(
+            connection = DBUtils.getConnection();
+            stmUsuario = connection.prepareStatement(
                     "SELECT password, salt FROM users WHERE name = ?");
             stmUsuario.setString(1, username);
             rsUsuario = stmUsuario.executeQuery();
@@ -167,6 +179,7 @@ public class UserDao {
                 if (rsUsuario != null) {
                     rsUsuario.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -183,9 +196,11 @@ public class UserDao {
         PreparedStatement stmUsuario = null;
         ResultSet rsUsuario = null;
         User user = null;
+        Connection connection = null;
 
         try {
-            stmUsuario = DBUtils.getConnection().prepareStatement(
+            connection = DBUtils.getConnection();
+            stmUsuario = connection.prepareStatement(
                     "SELECT * FROM users WHERE name = ?");
             stmUsuario.setString(1, name);
             rsUsuario = stmUsuario.executeQuery();
@@ -210,6 +225,7 @@ public class UserDao {
                 if (rsUsuario != null) {
                     rsUsuario.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
