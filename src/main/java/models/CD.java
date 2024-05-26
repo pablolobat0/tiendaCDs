@@ -2,10 +2,14 @@ package models;
 
 import java.math.BigDecimal;
 import java.util.Objects;
+import java.io.Serializable;
 
-public class CD implements Product {
+public class CD implements Product, Serializable {
     private String name;
     private BigDecimal price;
+
+    public CD() {
+    }
 
     public CD(String name, BigDecimal price) {
         this.name = name;

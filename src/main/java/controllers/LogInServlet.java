@@ -2,6 +2,8 @@ package controllers;
 
 import daos.FachadaBaseDeDatos;
 import exceptions.UserDoesNotExist;
+import models.User;
+
 import java.io.*;
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
@@ -24,8 +26,9 @@ public class LogInServlet extends HttpServlet {
 
         try {
             fachadaBaseDeDatos.authenticate(username, password);
+            User user = fachadaBaseDeDatos.getUserByName(username);
             HttpSession session = request.getSession(true);
-            session.setAttribute("username", username);
+            session.setAttribute("user", user);
             response.sendRedirect("index.jsp");
         } catch (UserDoesNotExist e) {
             request.setAttribute("error", e.getMessage());

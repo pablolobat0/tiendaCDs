@@ -2,8 +2,9 @@ package models;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
+import java.io.Serializable;
 
-public class ShoppingCart {
+public class ShoppingCart implements Serializable {
     private HashMap<Product, Integer> products;
 
     public ShoppingCart() {

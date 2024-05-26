@@ -6,6 +6,8 @@ import models.ShoppingCart;
 import models.User;
 
 import java.io.*;
+import java.math.BigDecimal;
+
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
@@ -28,8 +30,6 @@ public class ShoppingCartServlet extends HttpServlet {
             session.setAttribute("cart", cart);
         }
 
-        request.setAttribute("products", cart.getProducts());
-        request.setAttribute("totalPrice", cart.getTotalPrice());
         RequestDispatcher dispatcher = request.getRequestDispatcher("shoppingCart.jsp");
         dispatcher.forward(request, response);
     }
@@ -37,19 +37,21 @@ public class ShoppingCartServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        String username = (String) session.getAttribute("username");
+        User user = (User) session.getAttribute("user");
 
         // Verificar si el usuario está autenticado
-        if (username == null) {
+        if (user == null) {
             request.setAttribute("error", "Debe iniciar sesión o registrarse para realizar una compra.");
             RequestDispatcher dispatcher = request.getRequestDispatcher("signup.jsp");
             dispatcher.forward(request, response);
             return;
         }
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ShoppingCart();
-            session.setAttribute("cart", cart);
+        BigDecimal totalPrice = cart.getTotalPrice();
+        if (totalPrice.compareTo(BigDecimal.ZERO) == 0) {
+            request.setAttribute("error", "Introduzca algún artículo al carrito para comprar");
+            request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+            return;
         }
 
         request.setAttribute("totalPrice", cart.getTotalPrice());

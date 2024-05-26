@@ -18,7 +18,7 @@
           <a class="nav-link" href="shoppingCart">Carrito</a>
         </li>
         <c:choose>
-          <c:when test="${not empty username}">
+          <c:when test="${not empty user}">
             <li class="nav-item">
               <a href="logout" class="nav-link">Log out</a>
             </li>

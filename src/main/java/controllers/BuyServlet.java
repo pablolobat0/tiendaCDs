@@ -31,39 +31,39 @@ public class BuyServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         ShoppingCart cart = (ShoppingCart) session.getAttribute("cart");
-        if (cart == null) {
-            cart = new ShoppingCart();
-            session.setAttribute("cart", cart);
-        }
-
-        String username = (String) session.getAttribute("username");
         BigDecimal totalPrice = cart.getTotalPrice();
-        try {
-            User user = fachadaBaseDeDatos.getUserByName(username);
-            fachadaBaseDeDatos.createOrder(user.getId(), totalPrice);
-            cart.clear();
-            String confirmationMessage = "¡Compra realizada con éxito!";
-            request.setAttribute("confirmationMessage", confirmationMessage);
-            String name = request.getParameter("name");
-            String surname = request.getParameter("surname");
-            String address = request.getParameter("address");
-            // Calcular la fecha de llegada esperada
-            LocalDate today = LocalDate.now();
-            LocalDate expectedArrivalDate = today.plusDays(2);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            String formattedDate = expectedArrivalDate.format(formatter);
-
-            request.setAttribute("expectedArrival", formattedDate);
-
-            request.setAttribute("name", name);
-            request.setAttribute("surname", surname);
-            request.setAttribute("address", address);
-            request.setAttribute("totalPrice", totalPrice);
-        } catch (UserDoesNotExist e) {
-            request.setAttribute("error", e.getMessage());
+        if (totalPrice.compareTo(BigDecimal.ZERO) == 0) {
+            request.setAttribute("error", "Introduzca algún artículo al carrito para comprar");
             request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
             return;
         }
+
+        User user = (User) session.getAttribute("user");
+        if (user == null) {
+            request.setAttribute("error", "El usuario debe estar registrado");
+            request.getRequestDispatcher("shoppingCart.jsp").forward(request, response);
+            return;
+        }
+
+        fachadaBaseDeDatos.createOrder(user.getId(), totalPrice);
+        cart.clear();
+        String confirmationMessage = "¡Compra realizada con éxito!";
+        request.setAttribute("confirmationMessage", confirmationMessage);
+        String name = request.getParameter("name");
+        String surname = request.getParameter("surname");
+        String address = request.getParameter("address");
+        // Calcular la fecha de llegada esperada
+        LocalDate today = LocalDate.now();
+        LocalDate expectedArrivalDate = today.plusDays(2);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = expectedArrivalDate.format(formatter);
+
+        request.setAttribute("expectedArrival", formattedDate);
+
+        request.setAttribute("name", name);
+        request.setAttribute("surname", surname);
+        request.setAttribute("address", address);
+        request.setAttribute("totalPrice", totalPrice);
         request.getRequestDispatcher("buyConfirmation.jsp").forward(request, response);
     }
 }

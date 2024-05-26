@@ -11,11 +11,16 @@
 <body>
     <jsp:include page="menu.jsp" />
     <div class="container">
+        <c:if test="${not empty requestScope.error}">
+            <div class="alert alert-danger" role="alert">
+                ${requestScope.error}
+            </div>
+        </c:if>
         <h1 class="mt-5 mb-3">Lista de Productos</h1>
         <div class="row">
             <div class="col-md-6">
                 <ul class="list-group">
-                    <c:forEach var="entry" items="${products}">
+                    <c:forEach var="entry" items="${cart.getProducts()}">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             ${entry.key.getName()}
                             <span class="badge bg-primary rounded-pill">
@@ -33,7 +38,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Total</h5>
-                        <p class="card-text">${totalPrice}€</p>
+                        <p class="card-text">${cart.getTotalPrice()}€</p>
                         <form action="shoppingCart" method="post">
                             <button type="submit" class="btn btn-primary">Comprar</button>
                         </form>
