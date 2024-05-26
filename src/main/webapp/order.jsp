@@ -46,10 +46,9 @@
                         <input type="text" class="form-control" id="securityCode" name="securityCode" placeholder="CVV" required>
                     </div>
                 </div>
-                <input type="hidden" name="totalPrice" value="${param.totalPrice}">
                 <div class="mb-3">
                     <label class="form-label">Total a Pagar:</label>
-                    <p>${param.totalPrice}</p>
+                    <p>${cart.getTotalPrice()}€</p>
                 </div>
             </div>
             <button type="submit" class="btn btn-primary">Pagar</button>

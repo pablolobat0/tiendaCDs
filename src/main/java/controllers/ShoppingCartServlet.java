@@ -53,6 +53,7 @@ public class ShoppingCartServlet extends HttpServlet {
         }
 
         request.setAttribute("totalPrice", cart.getTotalPrice());
-        response.sendRedirect("order.jsp?totalPrice=" + cart.getTotalPrice());
+        RequestDispatcher requestDispatcher = request.getRequestDispatcher("order.jsp");
+        requestDispatcher.forward(request, response);
     }
 }

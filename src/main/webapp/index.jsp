@@ -12,9 +12,6 @@
     <jsp:include page="menu.jsp" />
     <div class="container">
         <h1 class="mt-5 mb-3">Bienvenido a la tienda de CDs</h1>
-        <c:if test="${not empty requestScope.confirmationMessage}">
-            <div class="alert alert-success" role="alert">${requestScope.confirmationMessage}</div>
-        </c:if>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>

@@ -13,8 +13,10 @@ public class ProductDao {
         PreparedStatement stmProducts = null;
         ResultSet rsProducts = null;
         ArrayList<Product> products = new ArrayList<>();
+        Connection connection = null;
         try {
-            stmProducts = DBUtils.getConnection().prepareStatement("SELECT * FROM cds");
+            connection = DBUtils.getConnection();
+            stmProducts = connection.prepareStatement("SELECT * FROM cds");
             rsProducts = stmProducts.executeQuery();
             while (rsProducts.next()) {
                 CD cd = new CD(rsProducts.getString("name"),
@@ -34,6 +36,7 @@ public class ProductDao {
                 if (rsProducts != null) {
                     rsProducts.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -45,8 +48,10 @@ public class ProductDao {
         PreparedStatement stmProducts = null;
         ResultSet rsProducts = null;
         Product product = null;
+        Connection connection = null;
         try {
-            stmProducts = DBUtils.getConnection().prepareStatement("SELECT * FROM cds WHERE name = ?");
+            connection = DBUtils.getConnection();
+            stmProducts = connection.prepareStatement("SELECT * FROM cds WHERE name = ?");
             stmProducts.setString(1, name);
 
             rsProducts = stmProducts.executeQuery();
@@ -67,6 +72,7 @@ public class ProductDao {
                 if (rsProducts != null) {
                     rsProducts.close();
                 }
+                DBUtils.closeConnection(connection);
             } catch (SQLException e) {
                 e.printStackTrace();
             }

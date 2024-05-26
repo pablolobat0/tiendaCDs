@@ -21,7 +21,7 @@
                     <div class="card">
                         <div class="card-body">
                             <h5 class="card-title">${product.getName()}</h5>
-                            <p class="card-text">Precio: ${product.getPrice()}</p>
+                            <p class="card-text">Precio: ${product.getPrice()}€</p>
                             <form action="products" method="post">
                                 <input type="hidden" name="productName" value="${product.getName()}">
                                 <div class="input-group mb-3">
