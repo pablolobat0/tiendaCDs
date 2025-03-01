@@ -1,0 +1,19 @@
+services:
+  postgresql:
+    image: postgres:16.2-alpine3.19
+    env_file:
+      - .env
+    volumes:
+      - ./database/create.sql:/docker-entrypoint-initdb.d/create.sql
+      - ./database/insert.sql:/docker-entrypoint-initdb.d/insert.sql
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env
+    depends_on:
+      - postgresql

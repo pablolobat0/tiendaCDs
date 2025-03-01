@@ -22,8 +22,6 @@ public class ProductDao {
                 CD cd = new CD(rsProducts.getString("name"),
                         rsProducts.getBigDecimal("price"));
                 products.add(cd);
-                System.out.println(cd);
-                System.out.println("Hola");
             }
         } catch (SQLException e) {
             System.err.println("Error al obtener los productos: " + e.getMessage());
